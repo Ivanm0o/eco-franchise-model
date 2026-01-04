@@ -1,40 +1,46 @@
-ECO-FRANCHISE-MODEL FUNCTIONALITIES
+# Eco-Franchise POS System
 
-1. Menu Class
-   - Parameters: name, items, start_time, end_time
-   - __repr__: Displays menu name and availability
-   - calculate_bill(purchased_items): Returns total cost of selected items
+A Python-based Point of Sale (POS) desktop application built with Tkinter. This system manages sales for a sustainable business ("EcoMarket") operating multiple franchises with distinct pricing strategies and time-based menus.
 
-2. Franchise Class
-   - Parameters: address, menus, is_mall (optional)
-   - __repr__: Displays franchise address
-   - available_menus(time): Returns menus available at given time
-   - If is_mall=True: Prices increase by 10% automatically
+## 📋 Overview
 
-3. Business Class
-   - Parameters: name, list of franchises
-   - Represents the EcoMarket brand grouping multiple franchises
+The application separates business logic (Backend classes) from the user interface (Frontend Tkinter). It allows cashiers to select store locations, view specific menus tailored to the time of day, build a shopping cart, and process transactions, generating persistent logs.
 
-4. Product Catalog
-   - Contains 20 eco-friendly products with base prices
-   - Examples: organic apples, quinoa, almond milk, vegan burger, kombucha, eco nuggets, etc.
+## ✨ Key Functionalities
 
-5. Menus
-   - Morning Market: fruits, drinks, breakfast items
-   - Afternoon Specials: vegan meals, salads, soups
-   - Evening Dinners: sustainable dishes, wine, pasta
-   - Kids EcoMenu: healthy snacks and juices
+### 1. Dynamic Business Logic
+* **Franchise Management:** Handles different store locations.
+* **Smart Pricing Engine:** Implements specific pricing rules. For example, the "Central Mall" branch automatically applies a **10% markup** to all base catalog prices upon initialization.
+* **Time-Based Menus:** Products are organized into distinct menus (e.g., "Morning Market", "Evening Dinners") available only during specific time slots.
 
-6. Franchises
-   - Flagship Store: full menu access
-   - Mall Branch: limited menus, prices increased by 10%
-   - Suburb Branch: selected menus, standard pricing
+### 2. Interactive User Interface (GUI)
+* **Store Configuration:** Dropdown selectors (Combobox) to switch between franchises and menus dynamically. Changing the franchise automatically clears the cart to ensure correct pricing.
+* **Product Browser:** Displays available items and their specific prices in a professional table view (Treeview) based on the active menu.
+* **Shopping Cart Management:**
+    * **Add to Cart:** Move items from the product browser to the cart.
+    * **Remove Selected:** Remove individual items from the cart.
+    * **Clear Cart:** Empty the entire cart instantly.
+* **Real-Time Totals:** The total cost is recalculated and displayed immediately after any cart modification.
 
-7. Business
-   - EcoMarket: umbrella brand for all franchises
+### 3. Transaction Processing
+* **Cart Validation:** Prevents checkout if the cart is empty.
+* **Receipt Generation:** Generates a detailed, formatted text receipt including timestamp, store location, itemized list, and final total.
+* **Persistent Logging:** Saves receipts automatically to a local text file (`transactions_log.txt`), appending new sales without overwriting previous data.
 
-8. Usage Examples
-   - Print menu availability by time
-   - Calculate bills for customer purchases
-   - Compare pricing between mall and non-mall franchises
-   - Simulate real-world business logic with Python OOP
+## 🔧 Technical Structure
+
+* **Backend (Model):**
+    * `Menu Class`: Defines lists of items and their prices within specific time windows. Handles bill calculation.
+    * `Franchise Class`: Represents a store. Creates deep copies of menus to apply location-specific price adjustments (like mall taxes) independent of other stores.
+    * `Business Class`: Aggregates franchises.
+* **Frontend (View/Controller):**
+    * `EcoApp Class (tk.Tk)`: The main window managing widgets, user events, and connection to the backend logic. Uses `ttk.Treeview` for tabular data display.
+
+## 🚀 How to Run
+
+1.  Ensure Python 3.x is installed.
+2.  No external libraries are required (uses standard `tkinter`, `copy`, `datetime`).
+3.  Run the script:
+    ```bash
+    eco-franchise-model.py
+    ```
